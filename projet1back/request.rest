@@ -1,0 +1,171 @@
+POST http://localhost:8000/produits
+Content-Type: application/json
+
+{
+  "id": 2,
+  "nom": "Appareil ",
+  "categorie": "Electro",
+  "prix": 35000,
+  "photo": "product-1.jpg",
+  "description": "L'appareil photo Canon... Lorem ipsum dolor sit amet consectetur adipisicing elit."
+}
+
+###
+GET http://localhost:8000/produits
+###
+GET http://localhost:8000/produits/2
+
+###
+PUT http://localhost:8000/produits/1
+Content-Type: application/json
+{
+  "id": 2,
+  "nom": "Appareil photo Canon",
+  "categorie": "Electronique",
+  "prix": 35000,
+  "photo": "product-1.jpg",
+  "description": "L'appareil photo Canon... Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, nostrum ipsum ea iusto porro quae dolore est cumque minima voluptas assumenda modi ex inventore repellendus! Quae nobis eius at nostrum!"
+}
+
+###
+DELETE http://localhost:8000/produits/2
+
+###
+
+### CREER COMMANDE
+POST http://localhost:8000/commandes
+Content-Type: application/json
+
+{
+  "num": "CMD001",
+  "userId": 1,
+  "total": 50000,
+  "status": "En attente"
+}
+
+###
+
+### RECUPERER COMMANDES
+GET http://localhost:8000/commandes
+
+###
+
+### RECUPERER UNE COMMANDE
+GET http://localhost:8000/commandes/3
+
+###
+
+### MODIFIER COMMANDE
+PUT http://localhost:8000/commandes/3
+Content-Type: application/json
+
+{
+  "status": "Payée"
+}
+
+###
+
+### SUPPRIMER COMMANDE
+DELETE http://localhost:8000/commandes/3
+
+### CREER DETAIL COMMANDE
+POST http://localhost:8000/details-commandes
+Content-Type: application/json
+
+{
+  "commandeId": 4,
+  "produitId": 2,
+  "quantite": 2,
+  "prix": 10000
+}
+
+
+### RECUPERER DETAILS
+GET http://localhost:8000/details-commandes
+
+
+### DETAIL PAR ID
+GET http://localhost:8000/details-commandes/4
+
+
+### MODIFIER DETAIL
+PUT http://localhost:8000/details-commandes/1
+Content-Type: application/json
+
+{
+  "quantite": 5
+}
+
+
+### SUPPRIMER DETAIL
+DELETE http://localhost:8000/details-commandes/1
+
+
+### RECUPERER TOUTES LES LIVRAISONS
+GET http://localhost:8000/livraisons
+
+
+### CREER UNE LIVRAISON
+POST http://localhost:8000/livraisons
+Content-Type: application/json
+
+{
+  "num": 1001,
+  "adresseL": "Bamako Hamdallaye",
+  "livreur": "Moussa",
+  "commandeId": 4
+}
+
+
+### RECHERCHER UNE LIVRAISON
+GET http://localhost:8000/livraisons/1
+
+
+### MODIFIER UNE LIVRAISON
+PUT http://localhost:8000/livraisons/1
+Content-Type: application/json
+
+{
+  "livreur": "Amadou"
+}
+
+
+### SUPPRIMER UNE LIVRAISON
+DELETE http://localhost:8000/livraisons/1
+
+############################################################
+### PAIEMENT
+############################################################
+
+
+### RECUPERER TOUS LES PAIEMENTS
+GET http://localhost:8000/paiements
+
+
+### CREER UN PAIEMENT
+POST http://localhost:8000/paiements
+Content-Type: application/json
+swzéq
+{
+  "support": "Orange Money",
+  "details": "Paiement mobile",
+  "commandeId": 4
+}
+
+
+### RECHERCHER UN PAIEMENT
+GET http://localhost:8000/paiements/1
+
+
+### MODIFIER UN PAIEMENT
+PUT http://localhost:8000/paiements/1
+Content-Type: application/json
+
+{
+  "support": "Wave",
+  "details": "Paiement modifié"
+}
+
+
+### SUPPRIMER UN PAIEMENT
+DELETE http://localhost:8000/paiements/1

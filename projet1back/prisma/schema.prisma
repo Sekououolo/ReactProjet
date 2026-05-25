@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+ id Int @id @default(autoincrement())
+ email String @unique
+ username String? @unique
+ firstname String?
+ lastname String?
+ tel String?
+ Adresse String?
+ avatar String?
+ password String
+ createdAt DateTime @default(now())
+ role String?
+ Commandes Commande[]
+}
+model Produit {
+ id Int @id @default(autoincrement())
+ nom String
+ categorie String?
+ prix Decimal @db.Decimal(9, 2)
+ photo String?
+ description String? @db.Text
+ createdAt DateTime @default(now())
+DetailsCommandes DetailsCommande[]
+}
+model Commande {
+ id Int @id @default(autoincrement())
+ num String? @unique
+ userId Int
+ total Decimal? @db.Decimal(9, 2)
+ status String?
+ Paiement  Paiement?
+ Livraison Livraison?
+ createdAt DateTime @default(now())
+ user User @relation(fields: [userId], references: [id], onUpdate:Cascade, onDelete: NoAction)
+ DetailsCommandes DetailsCommande[]
+}
+
+model DetailsCommande {
+ id Int @id @default(autoincrement())
+ commandeId Int
+ produitId Int
+ quantite Int
+ prix Decimal @db.Decimal(9, 2)
+ createdAt DateTime @default(now())
+ commande Commande @relation(fields: [commandeId], references: [id], onUpdate:Cascade, onDelete: NoAction)
+ produit Produit @relation(fields: [produitId], references: [id], onUpdate:Cascade, onDelete: NoAction)
+}
+
+model Paiement {
+  id         Int       @id @default(autoincrement())
+  num        Int       @unique
+  date       DateTime  @default(now())
+  support    String
+  details    String?
+  commandeId Int       @unique
+  commande   Commande  @relation(fields: [commandeId], references: [id], onUpdate: Cascade, onDelete: NoAction)
+}
+
+model Livraison {
+  id         Int       @id @default(autoincrement())
+  num        Int       @unique
+  date       DateTime  @default(now())
+  adresseL   String
+  livreur    String
+  commandeId Int       @unique
+  commande   Commande  @relation(fields: [commandeId], references: [id], onUpdate: Cascade, onDelete: NoAction)
+}
